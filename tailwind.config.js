@@ -13,10 +13,11 @@ module.exports = {
       lg: "1024px",
       xl: "1280px",
     },
-    colors: {
+    colors: ({ colors }) => ({
+      white: colors.white,
       primary: "#0D1117", 
-      secondary: "" // maybe violet
-    },
+      secondary: "#1E2028" 
+    }),
     extend: {},
   },
   plugins: [],
