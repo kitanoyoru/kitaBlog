@@ -1,10 +1,10 @@
 // Basic imports
+import Link from "next/link"
 import { FaGithub, FaTwitter, FaTelegram } from "react-icons/fa"
 
 // Types
 import type { FC } from "react"
 import type { IconType } from "react-icons"
-import Link from "next/link"
 
 type Socials = Array<{ Icon: IconType; link: string }>
 
@@ -27,15 +27,15 @@ const Footer: FC = () => {
 
   return (
     <footer className="bg-primary text-white border-t border-t-white p-4 w-full">
-      <div className="mx-auto mt-10 md:flex md:items-center md:justify-between md:p-6 w-3/5">
-        <span className="text-sm sm:text-center">
+      <div className="mx-auto mt-10 flex flex-col md:flex-row items-center justify-center md:justify-between md:p-6 md:w-4/5">
+        <span className="text-sm md:text-center">
           © 2022{" "}
           <Link href="/">
             <a className="hover:underline">kitaBlog</a>
           </Link>
           . All Rights Reserved.
         </span>
-        <ul className="flex flex-wrap items-center mt-3 text-sm sm:mt-0">
+        <ul className="flex flex-wrap items-center mt-3 text-sm md:mt-0">
           {socials.map(({ link, Icon }, index) => {
             if (index < socialsLength - 1) {
               return (
