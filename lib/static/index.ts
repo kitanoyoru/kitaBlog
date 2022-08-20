@@ -4,6 +4,8 @@ const md = `
 ~~~js
 console.log("Its not work!");
 ~~~
+
+# Some text
 `
 const staticPost: Post[] = [
   {

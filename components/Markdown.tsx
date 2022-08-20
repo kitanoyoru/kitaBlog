@@ -16,20 +16,20 @@ interface MarkdownProps {
 const Markdown: FC<MarkdownProps> = ({ content, className }) => {
   return (
     <ReactMarkdown
-      className={`${className} w-full mt-5 rounded-md text-xl tracking-wide break-words leading-relaxed transition-all min-h-screen`}
+      className={`${className} w-full mt-5 rounded-md text-xl tracking-wide break-words leading-relaxed transition-all`}
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ node, ...props }) => (
-          <h1 {...props} className="text-4xl font-bold mt-10 mb-10" />
+          <h1 {...props} className="text-4xl font-semibold mt-10 mb-10" />
         ),
         h2: ({ node, ...props }) => (
-          <h2 {...props} className="text-3xl font-bold mt-10 mb-10" />
+          <h2 {...props} className="text-3xl font-semibold mt-10 mb-10" />
         ),
         h3: ({ node, ...props }) => (
-          <h3 {...props} className="text-2xl font-bold mt-10 mb-10" />
+          <h3 {...props} className="text-2xl font-semibold mt-10 mb-10" />
         ),
         h4: ({ node, ...props }) => (
-          <h3 {...props} className="text-xl font-bold mt-10 mb-10" />
+          <h3 {...props} className="text-xl font-semibold mt-10 mb-10" />
         ),
         p: ({ node, ...props }) => <p {...props} className="mt-5 mb-5" />,
         code: ({ node, inline, className, children, ...props }) => {
