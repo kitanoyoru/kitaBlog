@@ -1,11 +1,10 @@
 // Components
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 
 // Types
-import type { ReactElement } from "react";
-import type { NextPage } from "next";
-
+import type { ReactElement } from "react"
+import type { NextPage } from "next"
 
 interface AppLayoutProps {
   children: ReactElement
@@ -18,7 +17,7 @@ const AppLayout: NextPage<AppLayoutProps> = ({ children }) => {
       {children}
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default AppLayout;
+export default AppLayout

@@ -3,7 +3,7 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./layout/**/*.{js,ts,jsx,tsx}",
+    "./layout/**/*.{js,ts,jsx,tsx}"
   ],
   darkMode: "class",
   theme: {
@@ -11,13 +11,14 @@ module.exports = {
       sm: "640px",
       md: "748px",
       lg: "1024px",
-      xl: "1280px",
+      xl: "1280px"
     },
-    colors: {
-      primary: "#0D1117", 
-      secondary: "" // maybe violet
-    },
-    extend: {},
+    colors: ({ colors }) => ({
+      white: colors.white,
+      primary: "#0D1117",
+      secondary: "#1E2028"
+    }),
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 }
