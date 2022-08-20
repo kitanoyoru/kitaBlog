@@ -1,11 +1,11 @@
 // Basic imports
-import Head from "next/head";
+import Head from "next/head"
 
 // Types
-import type { FC  } from "react";
+import type { FC } from "react"
 
 const IndexSEO: FC = () => {
-  const description = "Personal blog app.";
+  const description = "Personal blog app."
 
   return (
     <Head>
@@ -13,7 +13,7 @@ const IndexSEO: FC = () => {
       <meta name="description" content={description} />
       <meta name="author" content="kitanoyoru" />
     </Head>
-  );
-};
+  )
+}
 
-export default IndexSEO;
+export default IndexSEO

@@ -1,9 +1,8 @@
 // Basic imports
-import Link from "next/link";
+import Link from "next/link"
 
 // Types
-import type { FC } from 'react'
-
+import type { FC } from "react"
 
 const Header: FC = () => {
   return (
@@ -16,21 +15,23 @@ const Header: FC = () => {
       <nav className="text-white ml-9 sm:ml-9 flex items-center justify-center">
         <Link href="/about">
           <div className="group cursor-pointer">
-            <h1 className="sm:text-xl text-sm font-semibold cursor-pointer mx-5">About</h1>
+            <h1 className="sm:text-xl text-sm font-semibold cursor-pointer mx-5">
+              About
+            </h1>
             <div className="group-hover:h-px mt-2 bg-white group-hover:w-full w-0 transition-all"></div>
           </div>
         </Link>
         <Link href="/contact">
           <div className="group cursor-pointer">
-            <h1 className="sm:text-xl text-sm font-semibold cursor-pointer mx-5">Contact</h1>
+            <h1 className="sm:text-xl text-sm font-semibold cursor-pointer mx-5">
+              Contact
+            </h1>
             <div className="group-hover:h-px mt-2 bg-white group-hover:w-full w-0 transition-all"></div>
           </div>
         </Link>
       </nav>
-    </div>    
-  );
-};
+    </div>
+  )
+}
 
-export default Header;
-
-
+export default Header
