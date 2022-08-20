@@ -16,7 +16,7 @@ const Footer: FC = () => {
     },
     {
       Icon: FaTelegram,
-      link: ""
+      link: "https://t.me/kitanoyoru"
     },
     {
       Icon: FaGithub,
