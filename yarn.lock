@@ -895,6 +895,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/eslint-config-prettier@npm:^6.11.0":
+  version: 6.11.0
+  resolution: "@types/eslint-config-prettier@npm:6.11.0"
+  checksum: b1e7a0e4fc260f48464676676e36c9e7e261ab580f69625c592d32c772348b77b613df79f66d39ebfd4ada86ff3cebb829f5f18d9d1405d3acecc7bc6fc35c86
+  languageName: node
+  linkType: hard
+
 "@types/eslint-plugin-prettier@npm:^3.1.0":
   version: 3.1.0
   resolution: "@types/eslint-plugin-prettier@npm:3.1.0"
@@ -1935,6 +1942,17 @@ __metadata:
     typescript:
       optional: true
   checksum: 21f14cda6c28670e09267c9fc28fe17f9480487c85a322928507bbf61f072c62401bb7d8e79992b176d6a0d64a86419cbd69e475098b083aa5089bb6b572b8e0
+  languageName: node
+  linkType: hard
+
+"eslint-config-prettier@npm:^8.5.0":
+  version: 8.5.0
+  resolution: "eslint-config-prettier@npm:8.5.0"
+  peerDependencies:
+    eslint: ">=7.0.0"
+  bin:
+    eslint-config-prettier: bin/cli.js
+  checksum: 0d0f5c32e7a0ad91249467ce71ca92394ccd343178277d318baf32063b79ea90216f4c81d1065d60f96366fdc60f151d4d68ae7811a58bd37228b84c2083f893
   languageName: node
   linkType: hard
 
@@ -3099,6 +3117,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "kitablog@workspace:."
   dependencies:
+    "@types/eslint-config-prettier": ^6.11.0
     "@types/eslint-plugin-prettier": ^3.1.0
     "@types/node": 18.7.6
     "@types/react": 18.0.17
@@ -3107,6 +3126,7 @@ __metadata:
     autoprefixer: ^10.4.8
     eslint: 8.22.0
     eslint-config-next: 12.2.5
+    eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.2.1
     firebase: ^9.9.2
     husky: ^8.0.1

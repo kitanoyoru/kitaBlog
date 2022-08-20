@@ -16,5 +16,4 @@ const AboutSEO: FC = () => {
   )
 }
 
-export default AboutSEO 
-
+export default AboutSEO

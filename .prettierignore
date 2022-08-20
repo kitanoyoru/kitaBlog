@@ -1,6 +1,9 @@
 node_modules
 .next
 out
+
 .yarn
+yarn.*
+
 .github
 .husky

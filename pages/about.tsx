@@ -1,9 +1,9 @@
 // Basic imports
-import Image from "next/image";
-import AboutSEO from "../components/SEO/AboutSEO";
+import Image from "next/image"
+import AboutSEO from "../components/SEO/AboutSEO"
 
 // Types
-import type { NextPage } from "next";
+import type { NextPage } from "next"
 
 const About: NextPage = () => {
   return (
@@ -11,9 +11,7 @@ const About: NextPage = () => {
       <AboutSEO />
       <div className="py-36 max-w-4xl mx-auto grid sm:grid-cols-2 grid-cols-1 p-5">
         <div className="sm:flex sm:flex-col sm:justify-center">
-          <h1 className="text-4xl font-semibold text-white">
-            Alexandr Rutkovskij
-          </h1>
+          <h1 className="text-4xl font-semibold text-white">Alexandr Rutkovskij</h1>
           <p className="mt-5 text-lg text-white">
             Computer science student and full-stack developper.
           </p>
@@ -32,7 +30,7 @@ const About: NextPage = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default About;
+export default About
