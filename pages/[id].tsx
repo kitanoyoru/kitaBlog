@@ -1,16 +1,16 @@
 // Default imports
 import Image from "next/image"
 import Markdown from "../components/Markdown"
-import staticPost from "../lib/static"
+import PostService from "../lib/services/PostService"
 import PostDetailSEO from "../components/SEO/PostDetailSEO"
 
 // Types
 import type { GetStaticPaths, GetStaticProps } from "next"
-import type { Post } from "../lib/types"
+import type { IPost } from "../lib/types"
 import type { NextPage } from "next"
 
 interface DetailedPostProps {
-  post: Post
+  post: IPost
 }
 
 const DetailedPost: NextPage<DetailedPostProps> = ({ post }) => {
@@ -43,12 +43,13 @@ const DetailedPost: NextPage<DetailedPostProps> = ({ post }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async (context: any) => {
-  const posts: Post[] = staticPost
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts: IPost[] = await PostService.listPosts()
+
   const paths = posts.map((post) => {
     return {
       params: {
-        id: post.id.toString()
+        id: post.id
       }
     }
   })
@@ -60,7 +61,16 @@ export const getStaticPaths: GetStaticPaths = async (context: any) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const post: Post = staticPost[0]
+  const post = await PostService.getPost(context.params!.id as string)
+
+  if (!post || !Object.keys(post).length) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/404"
+      }
+    }
+  }
 
   return {
     props: {

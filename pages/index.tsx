@@ -2,17 +2,15 @@
 import Link from "next/link"
 import Image from "next/image"
 import IndexSEO from "../components/SEO/IndexSEO"
+import PostService from "../lib/services/PostService"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi"
 
 // Types
 import type { NextPage } from "next"
 import type { GetStaticProps } from "next"
-import type { Post } from "../lib/types"
-
-import staticPost from "../lib/static"
-
+import type { IPost } from "../lib/types"
 interface IndexProps {
-  posts: Post[]
+  posts: IPost[]
 }
 
 const Index: NextPage<IndexProps> = ({ posts }) => {
@@ -47,7 +45,7 @@ const Index: NextPage<IndexProps> = ({ posts }) => {
                   <div className="w-96 group cursor-pointer">
                     <div className="w-full h-80 relative group-hover:ring-2 ring-white transition-all">
                       <Image
-                        src={heroPost.imageUrl!}
+                        src={heroPost.imageUrl}
                         alt={heroPost.title}
                         layout="fill"
                         objectFit="cover"
@@ -68,8 +66,8 @@ const Index: NextPage<IndexProps> = ({ posts }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const posts: Post[] = staticPost
+export const getStaticProps: GetStaticProps = async () => {
+  const posts: IPost[] = await PostService.listPosts()
 
   if (!posts.length) {
     return {
