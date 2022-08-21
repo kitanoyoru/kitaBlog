@@ -8,13 +8,13 @@ import {
   collection,
   orderBy,
   updateDoc,
-  deleteDoc,
+  deleteDoc
 } from "firebase/firestore"
 import { db } from "../config/firebase"
 
 // Types
 import type { IPost, IPostUpdate } from "../types"
-import type { Timestamp } from "firebase/firestore";
+import type { Timestamp } from "firebase/firestore"
 
 class PostService {
   static createPost(post: IPost) {
@@ -28,9 +28,9 @@ class PostService {
     const posts: IPost[] = []
 
     snapshot.forEach((doc) => {
-      const data = doc.data() as IPost;
-      const id = data.id;
-      const createdAt = data.createdAt as Timestamp;
+      const data = doc.data() as IPost
+      const id = doc.id
+      const createdAt = data.createdAt as Timestamp
 
       posts.push({
         ...data,
@@ -48,15 +48,14 @@ class PostService {
 
     if (snapshot.exists()) {
       const data = snapshot.data() as IPost
-      const id = data.id;
-      const createdAt = data.createdAt as Timestamp 
-
+      const id = snapshot.id
+      const createdAt = data.createdAt as Timestamp
 
       return {
         ...data,
         id,
         createdAt: new Date(createdAt.toDate()).toDateString()
-      } 
+      }
     }
 
     return {}

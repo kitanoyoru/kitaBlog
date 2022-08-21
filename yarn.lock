@@ -1054,10 +1054,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:*":
+  version: 18.7.8
+  resolution: "@types/node@npm:18.7.8"
+  checksum: e0125efefa896083c05f549d93166109959ffdd68cb626aad0d660c0ce9de888fe405b4763b4a3c3e0968560409c272413e0ad07204522543c688e162a617ecb
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:18.7.6, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
   version: 18.7.6
   resolution: "@types/node@npm:18.7.6"
   checksum: 5122988c325eda8d1f5cbe4494916036aae1758f9d5bb2d8139a800b8bad1540fbb167cd3c759da9a5cb4600cd3507609ac7969747113c1549a3e4320a17b1a9
+  languageName: node
+  linkType: hard
+
+"@types/nodemailer@npm:^6.4.5":
+  version: 6.4.5
+  resolution: "@types/nodemailer@npm:6.4.5"
+  dependencies:
+    "@types/node": "*"
+  checksum: ecbe34a6eb5559bdca58115b5c03ff048896e14dc7ea6426b3fdfc03484764eb9e4100fcff37b96d012543ca47238c973d0f5bbfb1ab5a2d1f1f25d494714c59
   languageName: node
   linkType: hard
 
@@ -3228,6 +3244,7 @@ __metadata:
     "@types/eslint-plugin-prettier": ^3.1.0
     "@types/firebase": ^3.2.1
     "@types/node": 18.7.6
+    "@types/nodemailer": ^6.4.5
     "@types/react": 18.0.17
     "@types/react-dom": 18.0.6
     "@types/react-syntax-highlighter": ^15.5.4
@@ -3239,6 +3256,7 @@ __metadata:
     firebase: ^9.9.2
     husky: ^8.0.1
     next: 12.2.5
+    nodemailer: ^6.7.8
     postcss: ^8.4.16
     prettier: ^2.7.1
     react: 18.2.0
@@ -4182,6 +4200,13 @@ __metadata:
   version: 2.0.6
   resolution: "node-releases@npm:2.0.6"
   checksum: e86a926dc9fbb3b41b4c4a89d998afdf140e20a4e8dbe6c0a807f7b2948b42ea97d7fd3ad4868041487b6e9ee98409829c6e4d84a734a4215dff060a7fbeb4bf
+  languageName: node
+  linkType: hard
+
+"nodemailer@npm:^6.7.8":
+  version: 6.7.8
+  resolution: "nodemailer@npm:6.7.8"
+  checksum: 92d4a1d48813825989c7f5fc7cbcf5ba8d1a8acf8e10e420b4aa7670ade7abd0c543cc6cf8adf14e44c62552e26efb37b2a15a9af90a515fa90b40ffc71c433e
   languageName: node
   linkType: hard
 

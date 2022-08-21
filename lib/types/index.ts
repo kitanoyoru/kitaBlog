@@ -5,7 +5,7 @@ export type IPost = {
   imageUrl: string
   title: string
   content: string
-  createdAt: Timestamp | string 
+  createdAt: Timestamp | string
 }
 
 export type IPostUpdate = {
