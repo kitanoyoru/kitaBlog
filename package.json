@@ -13,6 +13,7 @@
     "url": "https://www.opensource.org/licenses/mit-license.php"
   },
   "scripts": {
+    "firebase": "firebase emulators:start",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -20,8 +21,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@types/nodemailer": "^6.4.5",
     "firebase": "^9.9.2",
     "next": "12.2.5",
+    "nodemailer": "^6.7.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
