@@ -26,11 +26,11 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
   trasporter.sendMail(mailData, (err, info) => {
     if (err) {
-      console.error(err);
-      return res.status(500).end();
+      console.error(err)
+      return res.status(500).end()
     } else {
-      console.log(info);
-      return res.status(200).end();
+      console.log(info)
+      return res.status(200).end()
     }
-  });
+  })
 }

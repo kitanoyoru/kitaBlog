@@ -63,8 +63,7 @@ const Contact: NextPage = () => {
       },
       body: JSON.stringify(state)
     })
-  };
-
+  }
 
   return (
     <div className="bg-primary max-h-screen">
