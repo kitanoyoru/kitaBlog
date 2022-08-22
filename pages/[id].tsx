@@ -62,6 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const post = await PostService.getPost(context.params!.id as string)
+  console.log(post)
 
   if (!post || !Object.keys(post).length) {
     return {

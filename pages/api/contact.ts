@@ -5,7 +5,7 @@ import SMTPTransport from "nodemailer/lib/smtp-transport"
 // Types
 import type { NextApiRequest, NextApiResponse } from "next"
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+const ContactHandler = (req: NextApiRequest, res: NextApiResponse) => {
   const trasporter = nodemailer.createTransport({
     host: process.env.NEXT_PUBLIC_EMAIL_HOST!,
     port: Number(process.env.NEXT_PUBLIC_SMTP_PORT),
@@ -34,3 +34,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     }
   })
 }
+
+export default ContactHandler

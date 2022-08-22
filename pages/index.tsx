@@ -4,11 +4,13 @@ import Image from "next/image"
 import IndexSEO from "../components/SEO/IndexSEO"
 import PostService from "../lib/services/PostService"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi"
+import revalidatePosts from "../lib/utils/revalidatePosts"
 
 // Types
 import type { NextPage } from "next"
 import type { GetStaticProps } from "next"
 import type { IPost } from "../lib/types"
+
 interface IndexProps {
   posts: IPost[]
 }
@@ -19,6 +21,17 @@ const Index: NextPage<IndexProps> = ({ posts }) => {
   return (
     <>
       <IndexSEO />
+      <button
+        className="ml-10 bg-secondary text-white p-5 rounded-lg"
+        onClick={() => {
+          revalidatePosts(process.env.REVALIDATE_TOKEN!)
+          if (window !== undefined) {
+            window.location.reload()
+          }
+        }}
+      >
+        Revalidate
+      </button>
       <div className="bg-primary p-5 xl:p-0 min-h-screen w-full">
         <div className="max-w-7xl pt-20 pb-36 mx-auto">
           <Link href={`/${heroPost.id}`}>
