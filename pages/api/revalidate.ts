@@ -1,21 +1,25 @@
 // Basic imports
-import PostService from "../../lib/services/PostService";
+import PostService from "../../lib/services/PostService"
 
 // Types
 import type { NextApiRequest, NextApiResponse } from "next"
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const RevalidateHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.body.token !== process.env.REVALIDATE_TOKEN) {
-    return res.status(401).json({ message: "Invalid token." });
+    return res.status(401).json({ message: "Invalid token." })
   }
 
   try {
-    const paths = await PostService.listPosts()
-      .then((posts) => posts.map(post => `/${post.id}`));
-    const promises: Promise<any>[] = [];
-    paths.forEach((path) => promises.push(res.revalidate(path)));
-    Promise.all(promises).then(() => res.json({ revalidated: true }));
+    const paths = await PostService.listPosts().then((posts) =>
+      posts.map((post) => `/${post.id}`)
+    )
+    console.log(paths)
+    const promises: Promise<any>[] = []
+    paths.forEach((path) => promises.push(res.revalidate(path)))
+    Promise.all(promises).then(() => res.json({ revalidated: true }))
   } catch (err) {
-    return res.status(500).send("Error revalidating");
+    return res.status(500).send("Error revalidating")
   }
-}; 
+}
+
+export default RevalidateHandler
