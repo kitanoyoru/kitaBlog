@@ -700,6 +700,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lukeed/csprng@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "@lukeed/csprng@npm:1.0.1"
+  checksum: fd84d6832775052d6bff3e78b0bc7f4b29b2fafa71b04826b0713f55d9a447a0b273d4eb70d02d89bb879e9d768cd9716da818dafa32ba6f7ecb639cbdc6806d
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:12.2.5":
   version: 12.2.5
   resolution: "@next/env@npm:12.2.5"
@@ -3267,6 +3274,7 @@ __metadata:
     remark-gfm: ^3.0.1
     tailwindcss: ^3.1.8
     typescript: 4.7.4
+    uid: ^2.0.0
   languageName: unknown
   linkType: soft
 
@@ -5498,6 +5506,15 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
+  languageName: node
+  linkType: hard
+
+"uid@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "uid@npm:2.0.0"
+  dependencies:
+    "@lukeed/csprng": ^1.0.0
+  checksum: c9333014d9ecc33d6c92ca8e9af8c52f172704b07af3a142879af368b7636f6ffff48cf87bc6021d4c85c7a0b255665ff0fe733f4b4a842f7bfd75638d31dd48
   languageName: node
   linkType: hard
 
