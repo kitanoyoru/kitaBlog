@@ -23,14 +23,6 @@ const Index: NextPage<IndexProps> = ({ posts }) => {
       <IndexSEO />
       <div className="bg-primary p-5 xl:p-0 min-h-screen w-full">
         <div className="max-w-7xl pt-20 pb-36 mx-auto">
-          <button
-            className="mb-10 bg-secondary text-white p-5 rounded-lg"
-            onClick={() => {
-              revalidatePosts(process.env.REVALIDATE_TOKEN!)
-            }}
-          >
-            Revalidate
-          </button>
           <Link href={`/${heroPost.id}`}>
             <div className="bg-secondary rounded-md cursor-pointer p-5 mb-10 h-96 py-20 sm:px-20 flex flex-col sm:flex-row justify-around items-center gap-20 group hover:ring-4 ring-white transition-all">
               <div>

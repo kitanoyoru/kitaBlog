@@ -1,19 +1,19 @@
 // Basic imports
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import Link from "next/link"
 import Markdown from "../components/Markdown"
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi"
 import { Timestamp } from "firebase/firestore"
-import { useRouter } from "next/router"
 import { uid } from "uid"
 import PostService from "../lib/services/PostService"
 import { clearLocal, readLocal, setLocal } from "../lib/utils/localStorage"
+import revalidatePosts from "../lib/utils/revalidatePosts"
 
 // Types
-import type { ReactElement } from "react"
 import type { MutableRefObject } from "react"
 import type { NextPage } from "next"
 import type { IPost, IPostUpdate } from "../lib/types"
+import { AiOutlineClear } from "react-icons/ai"
 
 const Editor: NextPage = () => {
   const draftPost: IPostUpdate = readLocal("draftPost")
@@ -24,8 +24,6 @@ const Editor: NextPage = () => {
   const titleRef = useRef() as MutableRefObject<HTMLInputElement>
   const imageRef = useRef() as MutableRefObject<HTMLInputElement>
 
-  const router = useRouter()
-
   const handleCreatePost = async () => {
     const id = uid(16)
     const { title, content, imageUrl } = readNewPostValues()
@@ -34,6 +32,8 @@ const Editor: NextPage = () => {
     if (validate(title, content)) {
       const newPost = { id, title, content, createdAt, imageUrl } as IPost
       await PostService.createPost(newPost)
+
+      await revalidatePosts(process.env.REVALIDATE_TOKEN!)
     }
   }
 
@@ -47,7 +47,7 @@ const Editor: NextPage = () => {
 
   const onChangeField = () => {
     const { title, content, imageUrl } = readNewPostValues()
-    setLocal("draft", { title, imageUrl, content })
+    setLocal("draftPost", { title, imageUrl, content })
   }
 
   const validate = (title: string, content: string): boolean => {
@@ -79,7 +79,7 @@ const Editor: NextPage = () => {
   const shouldPreviewMarkdown = isPreview && contentRef.current.value
 
   return (
-    <div className="text-white max-w-4xl mx-auto pb-28">
+    <div className="text-white min-h-screen  max-w-4xl mx-auto mt-20 pb-28">
       <input
         type="text"
         className="w-full bg-secondary p-5 rounded-md outline-none transition-all mb-5"
@@ -96,11 +96,34 @@ const Editor: NextPage = () => {
         onChange={onChangeField}
         defaultValue={draftPost?.imageUrl}
       />
+      <div className="mt-10 flex items-center justify-between">
+        <div className="flex gap-5 items-center">
+          <AiOutlineClear
+            className="text-2xl cursor-pointer hover:scale-110 transition-all"
+            onClick={clearDraftPost}
+          />
+          <button
+            className="hover:ring-2 transition-all rounded-md hover:ring-white bg-secondary px-3 py-2"
+            onClick={() => setIsPreview(!isPreview)}
+          >
+            {shouldPreviewMarkdown ? "Edit" : "Preview"}
+          </button>
+        </div>
+        <button
+          className="ring-2 ring-white bg-secondary  transition-all rounded-md px-5 py-2"
+          onClick={handleCreatePost}
+        >
+          Create post
+        </button>
+      </div>
+      {shouldPreviewMarkdown && (
+        <Markdown content={contentRef.current.value || ""} className="" />
+      )}
       <textarea
         ref={contentRef}
         className={`${
           shouldPreviewMarkdown ? "hidden" : ""
-        } resize-none w-full bg-secondary mt-5 h-100 rounded-md outline-none transition-all leading-relaxed tracking-wide break-words`}
+        } resize-none w-full bg-secondary p-10 mt-5 h-100 rounded-md outline-none transition-all leading-relaxed tracking-wide break-words`}
         placeholder="Post content as markdown"
         onChange={onChangeField}
         defaultValue={draftPost?.content}
