@@ -13,8 +13,8 @@ const RevalidateHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const paths = await PostService.listPosts().then((posts) =>
       posts.map((post) => `/${post.id}`)
     )
-    paths.push("/")
-    const promises: Promise<any>[] = []
+    paths.unshift("/")
+    const promises: Promise<void>[] = []
     paths.forEach((path) => promises.push(res.revalidate(path)))
     Promise.all(promises).then(() => res.json({ revalidated: true }))
   } catch (err) {

@@ -4,7 +4,6 @@ import Image from "next/image"
 import IndexSEO from "../components/SEO/IndexSEO"
 import PostService from "../lib/services/PostService"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi"
-import revalidatePosts from "../lib/utils/revalidatePosts"
 
 // Types
 import type { NextPage } from "next"
@@ -70,7 +69,6 @@ const Index: NextPage<IndexProps> = ({ posts }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts: IPost[] = await PostService.listPosts()
-
   if (!posts.length) {
     return {
       redirect: {

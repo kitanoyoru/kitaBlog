@@ -13,7 +13,7 @@
     "url": "https://www.opensource.org/licenses/mit-license.php"
   },
   "scripts": {
-    "firebase": "firebase emulators:start",
+    "firebase": "firebase",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

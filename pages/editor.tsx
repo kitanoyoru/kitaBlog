@@ -1,39 +1,48 @@
 // Basic imports
-import { useRef, useState } from "react"
 import Link from "next/link"
 import Markdown from "../components/Markdown"
+import Alert from "../components/Alert"
+import PostService from "../lib/services/PostService"
+import revalidatePosts from "../lib/utils/revalidatePosts"
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi"
 import { Timestamp } from "firebase/firestore"
 import { uid } from "uid"
-import PostService from "../lib/services/PostService"
 import { clearLocal, readLocal, setLocal } from "../lib/utils/localStorage"
-import revalidatePosts from "../lib/utils/revalidatePosts"
+import { AiOutlineClear } from "react-icons/ai"
+import { useRef, useState } from "react"
 
 // Types
+import { IAlert, AlertEnum } from "../lib/types"
 import type { MutableRefObject } from "react"
 import type { NextPage } from "next"
 import type { IPost, IPostUpdate } from "../lib/types"
-import { AiOutlineClear } from "react-icons/ai"
 
 const Editor: NextPage = () => {
   const draftPost: IPostUpdate = readLocal("draftPost")
+  const [alert, setAlert] = useState<IAlert>({ type: AlertEnum.ERROR, message: "" })
   const [error, setError] = useState("")
-  const [isPreview, setIsPreview] = useState(false)
 
+  const [isPreview, setIsPreview] = useState(false)
   const contentRef = useRef() as MutableRefObject<HTMLTextAreaElement>
   const titleRef = useRef() as MutableRefObject<HTMLInputElement>
   const imageRef = useRef() as MutableRefObject<HTMLInputElement>
 
-  const handleCreatePost = async () => {
+  const handleCreatePost = () => {
     const id = uid(16)
     const { title, content, imageUrl } = readNewPostValues()
     const createdAt = Timestamp.fromDate(new Date())
 
     if (validate(title, content)) {
       const newPost = { id, title, content, createdAt, imageUrl } as IPost
-      await PostService.createPost(newPost)
-
-      await revalidatePosts(process.env.REVALIDATE_TOKEN!)
+      const promises = [
+        PostService.createPost(newPost),
+        revalidatePosts(process.env.REVALIDATE_TOKEN!)
+      ]
+      Promise.all(promises)
+        .then(() =>
+          setAlert({ type: AlertEnum.SUCCESS, message: "Post was successfully saved." })
+        )
+        .catch(() => setAlert({ type: AlertEnum.ERROR, message: "Post was not saved." }))
     }
   }
 
@@ -68,7 +77,7 @@ const Editor: NextPage = () => {
     if (content || title || imageUrl) {
       const shouldClear = window.confirm("Are you sure?")
       if (shouldClear) {
-        clearLocal("draft")
+        clearLocal("draftPost")
         titleRef.current.value = ""
         contentRef.current.value = ""
         imageRef.current.value = ""
@@ -79,7 +88,7 @@ const Editor: NextPage = () => {
   const shouldPreviewMarkdown = isPreview && contentRef.current.value
 
   return (
-    <div className="text-white min-h-screen  max-w-4xl mx-auto mt-20 pb-28">
+    <div className="text-white min-h-screen p-5 max-w-4xl mx-auto mt-20 pb-28">
       <input
         type="text"
         className="w-full bg-secondary p-5 rounded-md outline-none transition-all mb-5"
@@ -110,7 +119,7 @@ const Editor: NextPage = () => {
           </button>
         </div>
         <button
-          className="ring-2 ring-white bg-secondary  transition-all rounded-md px-5 py-2"
+          className="ring-2 ring-white bg-secondary hover:scale-105 transition-all rounded-md px-5 py-2"
           onClick={handleCreatePost}
         >
           Create post
@@ -128,6 +137,7 @@ const Editor: NextPage = () => {
         onChange={onChangeField}
         defaultValue={draftPost?.content}
       />
+      {alert.message && <Alert alert={alert} />}
       <Link href="/">
         <div className="flex items-start gap-10 group cursor-pointer mt-20">
           <HiOutlineArrowNarrowLeft className="text-4xl group-hover:translate-x-1 transition-all" />

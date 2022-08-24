@@ -13,7 +13,7 @@ const About: NextPage = () => {
         <div className="sm:flex sm:flex-col sm:justify-center">
           <h1 className="text-4xl font-semibold text-white">Alexandr Rutkovskij</h1>
           <p className="mt-5 text-lg text-white">
-            Computer science student and full-stack developper.
+            Computer science student and full-stack developer.
           </p>
         </div>
         <div>
