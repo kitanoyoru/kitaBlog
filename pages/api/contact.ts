@@ -26,11 +26,11 @@ const ContactHandler = (req: NextApiRequest, res: NextApiResponse) => {
 
   trasporter.sendMail(mailData, (err, info) => {
     if (err) {
-      console.error(err)
-      return res.status(500).end()
+      console.log(err)
+      return res.status(500).send({ type: "Error" })
     } else {
       console.log(info)
-      return res.status(200).end()
+      return res.status(200).send({ type: "Success" })
     }
   })
 }

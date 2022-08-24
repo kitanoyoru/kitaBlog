@@ -15,3 +15,14 @@ export type IPostUpdate = {
   content?: string
   createdAt?: Timestamp | string
 }
+
+export type IAlert = {
+  message: string
+  type: AlertEnum
+}
+
+export enum AlertEnum {
+  ERROR = "error",
+  SUCCESS = "success",
+  LOADING = "loading"
+}

@@ -1,9 +1,11 @@
 // Basic imports
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
+import Alert from "../components/Alert"
 
 // Types
 import type { NextPage } from "next"
 import type { FormEvent } from "react"
+import { AlertEnum, IAlert } from "../lib/types"
 
 enum FormActionKind {
   EMAIL = "EMAIL",
@@ -52,17 +54,26 @@ const Contact: NextPage = () => {
     content: ""
   }
   const [state, dispatch] = useReducer(formReducer, initialState)
+  const [alert, setAlert] = useState<IAlert>({ type: AlertEnum.ERROR, message: "" })
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    fetch("/api/contact", {
+    const code = await fetch("/api/contact", {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json"
       },
       body: JSON.stringify(state)
-    })
+    }).then((res) => res.status)
+    if (code !== 200) {
+      setAlert({
+        type: AlertEnum.ERROR,
+        message: "The email was not sent. Please contact me via social media."
+      })
+    } else {
+      setAlert({ type: AlertEnum.SUCCESS, message: "The email was send sucessfully." })
+    }
   }
 
   return (
@@ -116,13 +127,14 @@ const Contact: NextPage = () => {
               value={state.content}
             />
           </div>
-          <div className="mx-auto flex justify-center mb-6">
+          <div className="mx-auto flex flex-col justify-center items-center mb-6">
             <button
               type="submit"
               className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-secondary sm:w-fi"
             >
               Send message
             </button>
+            {alert.message && <Alert alert={alert} />}
           </div>
         </form>
       </div>
