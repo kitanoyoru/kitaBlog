@@ -27,10 +27,10 @@ const ContactHandler = (req: NextApiRequest, res: NextApiResponse) => {
   trasporter.sendMail(mailData, (err, info) => {
     if (err) {
       console.log(err)
-      return res.status(500).send({ type: "Error" })
+      return res.status(500)
     } else {
       console.log(info)
-      return res.status(200).send({ type: "Success" })
+      return res.status(200)
     }
   })
 }

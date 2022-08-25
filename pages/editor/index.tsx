@@ -2,25 +2,25 @@
 import Link from "next/link"
 import Markdown from "../../components/Markdown"
 import Alert from "../../components/Alert"
-import PostService from "../../lib/services/PostService"
-import revalidatePosts from "../../lib/utils/revalidatePosts"
+import EditorLayout from "../../layout/EditorLayout"
 import { useRouter } from "next/router"
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi"
 import { Timestamp } from "firebase/firestore"
 import { uid } from "uid"
 import { clearLocal, readLocal, setLocal } from "../../lib/utils/localStorage"
 import { AiOutlineClear } from "react-icons/ai"
-import { useRef, useState } from "react"
+import { ReactElement, useEffect, useRef, useState } from "react"
+import { useEditor } from "../../layout/EditorLayout"
 
 // Types
 import { IAlert, AlertEnum } from "../../lib/types"
 import type { MutableRefObject } from "react"
-import type { NextPage } from "next"
+import type { NextPageWithLayout } from "../_app"
 import type { IPost, IPostUpdate } from "../../lib/types"
 
-const Editor: NextPage = () => {
+const Editor: NextPageWithLayout = () => {
+  const { createPost, user } = useEditor()
   const router = useRouter()
-
   const draftPost: IPostUpdate = readLocal("draftPost")
 
   const [alert, setAlert] = useState<IAlert>({ type: AlertEnum.ERROR, message: "" })
@@ -38,15 +38,12 @@ const Editor: NextPage = () => {
 
     if (validate(title, content)) {
       const newPost = { id, title, content, createdAt, imageUrl } as IPost
-      const promises = [
-        PostService.createPost(newPost),
-        revalidatePosts(process.env.REVALIDATE_TOKEN!)
-      ]
-      Promise.all(promises)
-        .then(() =>
-          setAlert({ type: AlertEnum.SUCCESS, message: "Post was successfully saved." })
-        )
-        .catch(() => setAlert({ type: AlertEnum.ERROR, message: "Post was not saved." }))
+      try {
+        createPost(newPost)
+        setAlert({ type: AlertEnum.SUCCESS, message: "Post was successfully created." })
+      } catch (err) {
+        setAlert({ type: AlertEnum.ERROR, message: "Post was not created." })
+      }
     }
   }
 
@@ -88,6 +85,12 @@ const Editor: NextPage = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login")
+    }
+  }, [])
 
   const shouldPreviewMarkdown = isPreview && contentRef.current.value
 
@@ -152,6 +155,10 @@ const Editor: NextPage = () => {
       </Link>
     </div>
   )
+}
+
+Editor.getLayout = (page: ReactElement) => {
+  return <EditorLayout>{page}</EditorLayout>
 }
 
 export default Editor

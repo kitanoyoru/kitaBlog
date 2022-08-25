@@ -1,10 +1,13 @@
 // Basic imports
 import React, { useRef } from "react"
 import AuthService from "../../lib/services/AuthService"
+import EditorLayout from "../../layout/EditorLayout"
 import { useRouter } from "next/router"
+import { useEditor } from "../../layout/EditorLayout"
 
 // Types
-import type { NextPage } from "next"
+import type { NextPageWithLayout } from "../_app"
+import type { ReactElement } from "react"
 import type { FormEvent } from "react"
 
 interface Input {
@@ -14,7 +17,8 @@ interface Input {
   ref: React.MutableRefObject<HTMLInputElement>
 }
 
-const Login: NextPage = () => {
+const Login: NextPageWithLayout = () => {
+  const { login } = useEditor()
   const router = useRouter()
 
   const emailRef = useRef() as React.MutableRefObject<HTMLInputElement>
@@ -42,6 +46,7 @@ const Login: NextPage = () => {
     }
     return true
   }
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
 
@@ -50,13 +55,12 @@ const Login: NextPage = () => {
 
     const isValid = validatePasswordInput()
     if (isValid) {
-      AuthService.loginUser(email, password)
-      router.push("/editor")
+      login(email, password)
     }
   }
 
   return (
-    <div className="bg-primary w-full min-h-screen flex justify-center items-center p-5 sm:p-0">
+    <div className="bg-primary w-full text-white min-h-screen flex justify-center items-center p-5 sm:p-0">
       <div className="w-96">
         <h1 className="text-white text-center text-4xl font-bold">Welcome</h1>
         <form onSubmit={onSubmit}>
@@ -74,13 +78,17 @@ const Login: NextPage = () => {
               </div>
             )
           })}
-          <button className="mt-10 bg-secondary w-full py-5 rounded-md hover:ring-4 transition-all text-white">
+          <button className="mt-10 bg-secondary w-full py-5 rounded-md hover:ring-4 transition-all">
             Login
           </button>
         </form>
       </div>
     </div>
   )
+}
+
+Login.getLayout = (page: ReactElement) => {
+  return <EditorLayout>{page}</EditorLayout>
 }
 
 export default Login

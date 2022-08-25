@@ -1,6 +1,7 @@
 // Basic imports
 import { useReducer, useState } from "react"
 import Alert from "../components/Alert"
+import fetchContactAPI from "../lib/utils/fetchContactAPI"
 
 // Types
 import type { NextPage } from "next"
@@ -58,14 +59,9 @@ const Contact: NextPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const code = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(state)
-    }).then((res) => res.status)
+
+    const code = await fetchContactAPI(state)
+
     if (code !== 200) {
       setAlert({
         type: AlertEnum.ERROR,

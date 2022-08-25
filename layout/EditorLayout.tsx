@@ -17,7 +17,6 @@ import type { User } from "firebase/auth"
 interface IEditorContext {
   posts: IPost[]
   user: User | null
-
   login: (email: string, password: string) => void
   createPost: (post: IPost) => void
   deletePost: (id: string) => void
@@ -41,13 +40,13 @@ const EditorLayout: NextPage<EditorLayoutProps> = ({ children }) => {
   const login = async (email: string, password: string) => {
     await AuthService.loginUser(email, password)
     setLocal("auth", "true")
-    await router.push("/editor")
+    router.push("/editor")
   }
   const createPost = async (post: IPost) => {
     await PostService.createPost(post)
     setPosts((posts) => [post, ...posts])
     await updateCache()
-    await router.push("/editor")
+    router.push("/editor")
   }
   const deletePost = async (id: string) => {}
   const updateCache = async (paths = ["/"]) => {
@@ -91,6 +90,10 @@ const EditorLayout: NextPage<EditorLayoutProps> = ({ children }) => {
       <div className="min-h-screnn w-full bg-primary">{children}</div>
     </editorContext.Provider>
   )
+}
+
+export const useEditor = () => {
+  return useContext(editorContext)
 }
 
 export default EditorLayout

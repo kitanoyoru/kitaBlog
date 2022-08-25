@@ -10,7 +10,7 @@ const RevalidateHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const paths = req.body.paths as string[];
+    const paths = req.body.paths as string[]
     const promises: Promise<void>[] = []
     paths.forEach((path) => promises.push(res.revalidate(path)))
     Promise.all(promises).then(() => res.json({ revalidated: true }))
