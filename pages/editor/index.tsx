@@ -1,28 +1,32 @@
 // Basic imports
 import Link from "next/link"
-import Markdown from "../components/Markdown"
-import Alert from "../components/Alert"
-import PostService from "../lib/services/PostService"
-import revalidatePosts from "../lib/utils/revalidatePosts"
+import Markdown from "../../components/Markdown"
+import Alert from "../../components/Alert"
+import PostService from "../../lib/services/PostService"
+import revalidatePosts from "../../lib/utils/revalidatePosts"
+import { useRouter } from "next/router"
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi"
 import { Timestamp } from "firebase/firestore"
 import { uid } from "uid"
-import { clearLocal, readLocal, setLocal } from "../lib/utils/localStorage"
+import { clearLocal, readLocal, setLocal } from "../../lib/utils/localStorage"
 import { AiOutlineClear } from "react-icons/ai"
 import { useRef, useState } from "react"
 
 // Types
-import { IAlert, AlertEnum } from "../lib/types"
+import { IAlert, AlertEnum } from "../../lib/types"
 import type { MutableRefObject } from "react"
 import type { NextPage } from "next"
-import type { IPost, IPostUpdate } from "../lib/types"
+import type { IPost, IPostUpdate } from "../../lib/types"
 
 const Editor: NextPage = () => {
+  const router = useRouter()
+
   const draftPost: IPostUpdate = readLocal("draftPost")
+
   const [alert, setAlert] = useState<IAlert>({ type: AlertEnum.ERROR, message: "" })
   const [error, setError] = useState("")
-
   const [isPreview, setIsPreview] = useState(false)
+
   const contentRef = useRef() as MutableRefObject<HTMLTextAreaElement>
   const titleRef = useRef() as MutableRefObject<HTMLInputElement>
   const imageRef = useRef() as MutableRefObject<HTMLInputElement>
